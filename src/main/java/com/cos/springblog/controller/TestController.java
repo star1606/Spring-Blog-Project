@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.springblog.model.Post;
 import com.cos.springblog.model.User;
 import com.cos.springblog.repository.PostRepository;
 import com.cos.springblog.repository.UserRepository;
+import com.cos.springblog.util.Script;
 
 @Controller
 public class TestController {
@@ -49,20 +51,27 @@ public class TestController {
 	}
 
 	@PostMapping("/loginProc")
-	public String login(User user, HttpSession session) {
+	public @ResponseBody String login(User user, HttpSession session) {
 
 		User principal = userRepository.login(user); // 로그인을 하고 나서,
+		
 		if (principal == null) {
-			System.out.println("principal 없음");
+			
 			System.out.println(principal);
-			return "home";
+			return Script.back2("아이디나 비밀번호가 틀렸습니다.");
 
 		} else {
 			session.setAttribute("principal", principal);
-			System.out.println("principal 있음");
+			return Script.href2("/");
 
 		}
 
+	
+	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
 		return "home";
 	}
 }
