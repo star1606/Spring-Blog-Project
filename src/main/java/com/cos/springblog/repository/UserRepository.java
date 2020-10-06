@@ -7,4 +7,6 @@ import com.cos.springblog.model.User;
 public interface UserRepository {
 
 	public List<User> findAll();
+	
+	public void save(User user);
 }
