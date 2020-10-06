@@ -9,8 +9,13 @@
 		VALUES(#{username}, #{password}, #{email}, 'USER_ROLE', now())
 	</insert>
 	
-<!-- 	<select id="login" resultType="com.cos.springblog.model.User"> -->
-<!-- 		SELECT id, username, email, profile, role, createDate FROM user WHERE username = #{username} AND password = #{password} -->
-<!-- 	</select> -->
+	<select id="login" resultType="com.cos.springblog.model.User">
+		SELECT id, username, email, profile, role, createDate FROM user WHERE username = #{username} AND password = #{password}
+	</select>
+  
+<!--   	<select id="findById" resultType="com.cos.springblog.model.User"> -->
+<!--   		SELECT id, username  -->
+<!--   		FROM user -->
+<!--   		WHERE username = #{username} -->
   
 </mapper>
