@@ -54,9 +54,9 @@ public class TestController {
 	public @ResponseBody String login(User user, HttpSession session) {
 
 		User principal = userRepository.login(user); // 로그인을 하고 나서,
-		
+
 		if (principal == null) {
-			
+
 			System.out.println(principal);
 			return Script.back2("아이디나 비밀번호가 틀렸습니다.");
 
@@ -66,12 +66,12 @@ public class TestController {
 
 		}
 
-	
 	}
-	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "home";
+		
+		return Script.href2("/", "로그아웃 하였습니다.") ;
 	}
 }

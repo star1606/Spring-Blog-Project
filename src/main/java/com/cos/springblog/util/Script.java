@@ -108,28 +108,38 @@ public class Script {
 //		}
 //
 //	}
-
+	
+	
+	
+	
 	public static String back2(String msg) {
 
 		return 
-				"<script>" + 
-				"alert('" + msg + "');" + 
-				"history.back();" + 
-				"</script>";
+			"<script>" + 
+			"alert('" + msg + "');" + 
+			"history.back();" + 
+			"</script>";
 	}
 	
 	
 	public static String href2(String uri) {
 		
-			
 					return
-							"<script>" +
-							"location.href='" + uri + "';" +
-//							"location.href=" + uri +
-							"</script>"
-							;
+						"<script>" +
+						"location.href='" + uri + "';" +
+						"</script>"	;
 					
 	}
+	
+	public static String href2(String uri, String msg) {
+		
+		return
+			"<script>" +
+			"alert('" + msg + "');" + 
+			"location.href='" + uri + "';" +
+			"</script>"	;
+		
+}
 				
 		
 					// redirect 안쓰고 history back을 다 쓴다
