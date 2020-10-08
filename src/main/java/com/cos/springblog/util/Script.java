@@ -112,7 +112,26 @@ public class Script {
 	
 	
 	
-	public static String back2(String msg) {
+public static String href(String msg, String uri) {
+		
+		return
+			"<script>"+
+			"alert('"+ msg +"');"+
+			"location.href='" + uri + "';" + 
+			"</script>";
+	}
+	
+	
+public static String href(String uri) {
+		
+		return
+			"<script>"+
+			"location.href='" + uri + "';" + 
+			"</script>";
+	}
+	
+	
+	public static String back(String msg) {
 
 		return 
 			"<script>" + 
@@ -120,26 +139,6 @@ public class Script {
 			"history.back();" + 
 			"</script>";
 	}
-	
-	
-	public static String href2(String uri) {
-		
-					return
-						"<script>" +
-						"location.href='" + uri + "';" +
-						"</script>"	;
-					
-	}
-	
-	public static String href2(String uri, String msg) {
-		
-		return
-			"<script>" +
-			"alert('" + msg + "');" + 
-			"location.href='" + uri + "';" +
-			"</script>"	;
-		
-}
 				
 		
 					// redirect 안쓰고 history back을 다 쓴다

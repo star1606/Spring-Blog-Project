@@ -26,52 +26,70 @@ public class TestController {
 	@Autowired
 	UserRepository userRepository;
 
-	@GetMapping({ "/", "" })
-	public String test(Model model) {
-		List<Post> postList = postRepository.findAll();
-		model.addAttribute("posts", postList);
-		return "home";
-	}
+	// dashboard
+		@GetMapping({ "/", "" })
+		public String home(Model model) {
+			List<Post> posts = postRepository.findAll();
+			model.addAttribute("posts", posts);
+			return "home";
+		}
 
-	@GetMapping("/join")
-	public String joinPage() {
-		return "user/joinForm";
-	}
+		// login
+		// 페이지 이동외에 어떤 작업 후에 return을 viewResolver로 하는 것은 잘못된 방법이다.
+		@GetMapping("/login")
+		public String loginPage() {
 
-	@PostMapping("/joinProc")
-	public String join(User user) {
-		System.out.println("join 실행" + user);
-		userRepository.save(user);
-		return "user/loginForm";
-	}
+			return "user/loginForm";
+		}
 
-	@GetMapping("/login")
-	public String loginPage() {
-		return "user/loginForm";
-	}
+		// loginProc로 페이지가 이동하지만 처리하는 이동이고 보여주는 페이지가 아니다.
+		@PostMapping("/loginProc")
+		public @ResponseBody String loginProc(User user, HttpSession session) {
+			User principal = userRepository.findByUsernameAndPassword(user);
 
-	@PostMapping("/loginProc")
-	public @ResponseBody String login(User user, HttpSession session) {
+			if (principal != null) {
+				session.setAttribute("principal", principal);
+				return Script.href("로그인이 완료되었습니다.", "/");
+			} else {
+				// return Script.outText("아이디나 비밀번호가 틀렸습니다."); 이렇게만 하면 login Proc로 이동함
+				return Script.href("비밀번호나 아이디가 틀렸습니다.", "/login");
+				// 근데 이 부분은 script로 처리하는 것이 아닌 다른 방법으로 확인해줘야 할 것 같다.
+			}
 
-		User principal = userRepository.login(user); // 로그인을 하고 나서,
+			
 
-		if (principal == null) {
+		}
+		
+		// logout
+		@GetMapping("/logout") //getMapping으로 해줘야함
+		public @ResponseBody String logout(HttpSession session) {
+			session.invalidate();
+			
+			return Script.href("로그아웃하였습니다.", "/");
+		}
 
-			System.out.println(principal);
-			return Script.back2("아이디나 비밀번호가 틀렸습니다.");
+		// join
+		@GetMapping("/join")
+		public String joinPage() {
 
-		} else {
-			session.setAttribute("principal", principal);
-			return Script.href2("/");
+			return "user/joinForm";
+		}
 
+		@PostMapping("/joinProc")
+		public @ResponseBody String joinProc(User user) {
+			System.out.println("joinProc 실행" + user);
+			User username = userRepository.findByUsername(user);
+			if(username != null) {
+				return Script.back("아이디가 중복되었습니다.");
+				
+			} else {
+				userRepository.save(user);
+				return Script.href("회원가입이 완료되었습니다.", "/login");
+			}
+
+
+			
 		}
 
 	}
 
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		
-		return Script.href2("/", "로그아웃 하였습니다.") ;
-	}
-}
