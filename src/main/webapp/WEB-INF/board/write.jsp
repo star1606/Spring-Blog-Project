@@ -10,8 +10,9 @@
 
 
 
-<div class= "container">	<!-- get 하면 body에 데이터 못들고감 -->
-	<form action="/blog/board?cmd=writeProc" method="POST">
+<div class= "container">	
+<!-- get 하면 body에 데이터 못들고감 -->
+	<form action="/writeProc" method="POST">
 		<div class="form-group">
 			<label for="title">Title:</label>
 			<input type="text" class="form-control" placeholder="title" id="title" name="title">

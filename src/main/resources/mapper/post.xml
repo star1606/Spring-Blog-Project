@@ -28,4 +28,10 @@
   	</select>
   
   
+	<!-- 글쓰기  title, content, userId필요, createDate-->
+<!--   	<insert> -->
+<!--   		INSERT INTO -->
+<!--   	</insert> -->
+  
+  
 </mapper>
