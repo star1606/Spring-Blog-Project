@@ -1,15 +1,23 @@
 package com.cos.springblog.controller;
 
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.cos.springblog.dto.BoardResponseDto;
+import com.cos.springblog.dto.DetailResponseDto;
+import com.cos.springblog.dto.ReplyResponseDto;
 import com.cos.springblog.model.Post;
 import com.cos.springblog.model.User;
+import com.cos.springblog.repository.CommentRepository;
 import com.cos.springblog.repository.PostRepository;
 import com.cos.springblog.repository.UserRepository;
 import com.cos.springblog.util.Script;
@@ -23,6 +31,9 @@ public class TestController {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	CommentRepository commentRepository;
+	
 	// dashboard
 		@GetMapping({ "/", "" })
 		public String home(Model model) {
@@ -88,5 +99,29 @@ public class TestController {
 			
 		}
 
+		
+		// detail
+		
+		@GetMapping({ "/detail/{id}"})
+		public String detailPage(@PathVariable int id, Model model) {
+			BoardResponseDto boardDto = postRepository.findById(id);
+			System.out.println(boardDto);
+			
+			List<ReplyResponseDto> replyDto = commentRepository.findByPostId(id);
+			
+			//빌더, 생성자 공부
+			DetailResponseDto detailDto = DetailResponseDto.builder()
+					.boardDto(boardDto)
+					.replyDtos(replyDto)
+					.build();
+			
+			model.addAttribute("detailDto", detailDto);
+			
+			
+			return "board/detail";
+		}
+		
+		
+		
 	}
 

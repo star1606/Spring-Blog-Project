@@ -15,7 +15,7 @@
 	    WHERE username = #{username} AND password = #{password}
 	</select>
 	
-	<select id="findByUsername" resultType="com.cos.springblog2.model.User">
+	<select id="findByUsername" resultType="com.cos.springblog.model.User">
   		SELECT id, username, email, profile, role, createDate
   		FROM user
   		WHERE username = #{username}

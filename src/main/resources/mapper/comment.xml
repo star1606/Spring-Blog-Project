@@ -2,13 +2,18 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cos.springblog.repository.PostRepository">
+<mapper namespace="com.cos.springblog.repository.CommentRepository">
 
 
-<select id="findAll" resultType="com.cos.springblog.model.Post">
-<!-- 	SELECT * -->
-<!-- 	FROM POST -->
-	SELECT id, title, content, userId, createDate FROM Post
+<select id="findByPostId" resultType="com.cos.springblog.dto.ReplyResponseDto">
+<!-- <select id="findByPostId" resultType="com.cos.springblog.model.Comment"> -->
+<!-- model.Comment를 하면 Comment의 필드들을 출력할 수 있지만 username을 출력할 수 없다. -->
+	select c.id, c.userId, c.postId, c.content, c.createDate, u.username
+	from comment c INNER JOIN user u
+	on c.userId = u.id
+	where c.postId = #{postId}
+	
+<!-- 	join을 써서 출력하기 때문에 DTO 필요 -->
 </select>
 	
 <!-- 	<insert id="save"> -->
