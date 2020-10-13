@@ -14,6 +14,7 @@ public interface PostRepository {
 	// BoardResponseDto를 가져오기 위해서 findById를 사용
 	public BoardResponseDto findById(int id);
 	
+	public void save(Post post);
 	
 	
 

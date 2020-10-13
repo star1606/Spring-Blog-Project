@@ -28,10 +28,11 @@
   	</select>
   
   
-	<!-- 글쓰기  title, content, userId필요, createDate-->
-<!--   	<insert> -->
-<!--   		INSERT INTO -->
-<!--   	</insert> -->
+<!-- 	글쓰기  title, content, userId필요, createDate -->
+  <insert id="save">
+		INSERT INTO post(userId, title, content, createDate) 
+		VALUES(#{userId}, #{title}, #{content}, now())
+	</insert>
   
   
 </mapper>

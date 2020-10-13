@@ -137,6 +137,9 @@ public class TestController {
 				.userId(principal.getId())
 				.build();
 		
+		
+		postRepository.save(requestPost);
+		
 		return "redirect:/";
 	}
 	
