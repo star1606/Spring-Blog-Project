@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class ReplyResponseDto {
 
 	
-	// DTO 만드는 법 다시 공부
+
 	
 	private int id;
 	private int userId;

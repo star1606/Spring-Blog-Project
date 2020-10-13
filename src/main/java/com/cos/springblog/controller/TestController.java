@@ -102,10 +102,17 @@ public class TestController {
 		BoardResponseDto boardDto = postRepository.findById(id);
 		System.out.println(boardDto);
 
-		List<ReplyResponseDto> replyDto = commentRepository.findByPostId(id);
-
+		// 여기서 id는 PostId인 것을 참고해야한다.
+//		주호쌤은 findByPostId가 아닌 findAll로 표현했다 
+		List<ReplyResponseDto> replyDtos = commentRepository.findByPostId(id);
+		
+		
+		
 		// 빌더, 생성자 공부
-		DetailResponseDto detailDto = DetailResponseDto.builder().boardDto(boardDto).replyDtos(replyDto).build();
+		DetailResponseDto detailDto = DetailResponseDto.builder()
+				.boardDto(boardDto)
+				.replyDtos(replyDtos)
+				.build();
 
 		model.addAttribute("detailDto", detailDto);
 
@@ -114,7 +121,7 @@ public class TestController {
 
 	
 	
-	// write
+	// writePage
 	@GetMapping("/write")
 	public String writePage() {
 		
@@ -124,6 +131,7 @@ public class TestController {
 	
 	// key : value로 들어올 때
 	// 스프링에서 key : value로 오는 값을 받아서 자동으로 객체로 받아줄 수 있다.
+	// write : 글쓰기
 	@PostMapping("/writeProc")
 	public String write(Post post, HttpSession session) {
 		

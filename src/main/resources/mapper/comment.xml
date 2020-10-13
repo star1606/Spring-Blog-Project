@@ -8,10 +8,10 @@
 <select id="findByPostId" resultType="com.cos.springblog.dto.ReplyResponseDto">
 <!-- <select id="findByPostId" resultType="com.cos.springblog.model.Comment"> -->
 <!-- model.Comment를 하면 Comment의 필드들을 출력할 수 있지만 username을 출력할 수 없다. -->
-	select c.id, c.userId, c.postId, c.content, c.createDate, u.username
-	from comment c INNER JOIN user u
-	on c.userId = u.id
-	where c.postId = #{postId}
+	SELECT c.id, c.userId, c.postId, c.content, c.createDate, u.username
+	FROM comment c INNER JOIN user u
+	ON c.userId = u.id
+	WHERE c.postId = #{postId}
 	
 <!-- 	join을 써서 출력하기 때문에 DTO 필요 -->
 </select>
@@ -25,12 +25,7 @@
 <!-- 		SELECT id, username, email, profile, role, createDate FROM user WHERE username = #{username} AND password = #{password} -->
 <!-- 	</select> -->
   
-  	<select id="findById" resultType="com.cos.springblog.dto.BoardResponseDto">
-  		SELECT p.id, p.userId, p.title, p.content, p.createDate, u.username 
-  		FROM post p INNER JOIN user u 
-  		ON p.userId = u.id 
-  		WHERE p.id = #{id} 
-  	</select>
+
   
   
 </mapper>
