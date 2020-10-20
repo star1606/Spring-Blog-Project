@@ -188,6 +188,7 @@ public class TestController {
 		System.out.println("updateProc" + post);
 		
 //		이거랑 차이가있나
+		
 		//postRepository.update(post);
 		int result = postRepository.update(post);
 		
@@ -200,6 +201,7 @@ public class TestController {
 		
 		
 		return "redirect:/";
+		// 이렇게하면 alert창을 못 띄운다.
 	}
 	
 }
