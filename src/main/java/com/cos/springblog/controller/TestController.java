@@ -140,6 +140,8 @@ public class TestController {
 		
 	  	System.out.println(principal);
 		
+	  	
+	  	// principal.getId때문에..
 		Post requestPost = Post.builder()
 				.title(post.getTitle())
 				.content(post.getContent())
@@ -167,10 +169,11 @@ public class TestController {
 	@GetMapping("/update/{id}")
 	public String updatePage(@PathVariable int id, Model model) {
 		
-		// boardDto에 id가없음
-		
+		//이렇게 하면 안된다 boardDto에 id가없음
 		//Post post = postRepository.findTitleAndContent(id);
+		
 		Post post = postRepository.findByIdInUpdate(id);
+		
 		model.addAttribute("boardDto", post);
 		return "board/update";
 	}
@@ -181,21 +184,16 @@ public class TestController {
 	public String updateProc(Post post){
 		System.out.println("updateProc" + post);
 		
-		
-		
-//		Post requestUpdatePost = Post.builder()
-//				.title(post.getTitle())
-//				.content(post.getContent())
-//				.build();
-		
 //		이거랑 차이가있나
 		//postRepository.update(post);
-		int result =postRepository.update(post);
+		int result = postRepository.update(post);
 		
 //		if(result == 1) {
 //			return Script.href("수정에 성공하였습니다", "/");
 //		
 //		}
+		// 빌더는 들어가고 안들어가고 차이가 뭐지?
+		
 		
 		
 		return "redirect:/";
