@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DetailResponseDto {
 
+	
 	private BoardResponseDto boardDto;
 	
 	// reply는 List로 넣어야함

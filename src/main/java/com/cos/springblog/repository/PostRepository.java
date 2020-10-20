@@ -16,6 +16,8 @@ public interface PostRepository {
 	
 	public void save(Post post);
 	
+	public int delete(int id);
+	// 지워지면 1  안지워지면 0  int로 해서 return 값을 받음
 	
 
 }

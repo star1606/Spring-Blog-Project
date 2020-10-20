@@ -32,7 +32,12 @@
   <insert id="save">
 		INSERT INTO post(userId, title, content, createDate) 
 		VALUES(#{userId}, #{title}, #{content}, now())
-	</insert>
+  </insert>
+  
+  <delete id="delete">
+  		DELETE FROM post
+  		WHERE id = #{id}
+  </delete>
   
   
 </mapper>

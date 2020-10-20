@@ -26,6 +26,8 @@
 <%-- 		<button class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.board.id} )">삭제</button> --%>
 		
 <%-- 	</c:if> --%>
+
+		<button class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.id} )">삭제</button>
 	<br />
 	<br />
 	<h6 class="m-2">
@@ -180,10 +182,7 @@
 -->
 
 
-
-<script src = "/blog/js/detail.js"></script>
-<script src="/blog/js/reply.js"></script>
-
+<script src="/js/detail.js"></script>
 
 
 

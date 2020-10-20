@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -103,7 +104,7 @@ public class TestController {
 		System.out.println(boardDto);
 
 		// 여기서 id는 PostId인 것을 참고해야한다.
-//		주호쌤은 findByPostId가 아닌 findAll로 표현했다 
+		// 주호쌤은 findByPostId가 아닌 findAll로 표현했다 
 		List<ReplyResponseDto> replyDtos = commentRepository.findByPostId(id);
 		
 		
@@ -128,7 +129,6 @@ public class TestController {
 		return "board/write";
 	}
 
-	
 	// key : value로 들어올 때
 	// 스프링에서 key : value로 오는 값을 받아서 자동으로 객체로 받아줄 수 있다.
 	// write : 글쓰기
@@ -149,6 +149,12 @@ public class TestController {
 		postRepository.save(requestPost);
 		
 		return "redirect:/";
+	}
+	
+	@DeleteMapping("/delete")
+	public @ResponseBody String delete(int id) {
+		postRepository.delete(id);
+		return "1";
 	}
 	
 }

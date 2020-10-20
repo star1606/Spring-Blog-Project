@@ -2,8 +2,6 @@ package com.cos.springblog.dto;
 
 import java.sql.Timestamp;
 
-import com.cos.springblog.model.Post;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class BoardResponseDto {
 
 	//쌤이 했던 방식
-	private Post board;
+//	private Post board;
 	
 	
 	// 광열이 형 방식
