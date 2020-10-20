@@ -21,12 +21,13 @@
 	
 <%-- 	<c:if test="${sessionScope.principal.id == detailDto.boardDto.board.userId}"> --%>
 <%-- 		<%-- 로그인한사람하고 board id로 직접 쓴사람이 수정할 수 있게 설정--%>
-<%-- 	<a href="/blog/board?cmd=update&id=${detailDto.boardDto.board.id}" class="btn btn-warning">수정</a> --%>
+
 		
 <%-- 		<button class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.board.id} )">삭제</button> --%>
 		
 <%-- 	</c:if> --%>
-
+안되는 이유가 자신이 만든 id가 아니라서?
+		<a href="/update/${detailDto.boardDto.id}" class="btn btn-warning">수정</a>
 		<button class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.id} )">삭제</button>
 	<br />
 	<br />

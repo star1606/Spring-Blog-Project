@@ -6,8 +6,6 @@ function deleteById(id){
 			id : id
 	}
 	
-	 
-	
 	$.ajax({
 		
 		type: "DELETE",

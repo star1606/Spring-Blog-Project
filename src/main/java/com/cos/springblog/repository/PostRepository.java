@@ -2,6 +2,7 @@ package com.cos.springblog.repository;
 
 import java.util.List;
 
+
 import com.cos.springblog.dto.BoardResponseDto;
 import com.cos.springblog.model.Post;
 
@@ -16,8 +17,14 @@ public interface PostRepository {
 	
 	public void save(Post post);
 	
-	public int delete(int id);
 	// 지워지면 1  안지워지면 0  int로 해서 return 값을 받음
+	public int deleteById(int id);
 	
-
+	
+	// update
+	public Post findTitleAndContent(int id);
+	public Post findByIdInUpdate(int id);
+	//public int updateById(int id);
+	public int update(Post post);
+	
 }

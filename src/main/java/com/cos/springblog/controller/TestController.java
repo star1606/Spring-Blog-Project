@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.springblog.dto.BoardResponseDto;
@@ -151,10 +152,53 @@ public class TestController {
 		return "redirect:/";
 	}
 	
+	// delete
+	
 	@DeleteMapping("/delete")
 	public @ResponseBody String delete(int id) {
-		postRepository.delete(id);
+		postRepository.deleteById(id);
 		return "1";
+	}
+	
+	
+	
+	// update
+	
+	@GetMapping("/update/{id}")
+	public String updatePage(@PathVariable int id, Model model) {
+		
+		// boardDto에 id가없음
+		
+		//Post post = postRepository.findTitleAndContent(id);
+		Post post = postRepository.findByIdInUpdate(id);
+		model.addAttribute("boardDto", post);
+		return "board/update";
+	}
+	
+	// return을 어떤식으로 하지
+	// update를 어떤식으로 해야되면 id로만 하는게 아니다
+	@PostMapping("/updateProc")
+	public String updateProc(Post post){
+		System.out.println("updateProc" + post);
+		
+		
+		
+//		Post requestUpdatePost = Post.builder()
+//				.title(post.getTitle())
+//				.content(post.getContent())
+//				.build();
+		
+//		이거랑 차이가있나
+		//postRepository.update(post);
+		int result =postRepository.update(post);
+		
+//		if(result == 1) {
+//			return Script.href("수정에 성공하였습니다", "/");
+//		
+//		}
+		
+		
+		return "redirect:/";
 	}
 	
 }
