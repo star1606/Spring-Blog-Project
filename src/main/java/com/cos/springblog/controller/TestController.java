@@ -2,6 +2,7 @@ package com.cos.springblog.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class TestController {
 	// dashboard
 	@GetMapping({ "/", "" })
 	public String home(Model model) {
-		List<Post> posts = postRepository.findAll();
+		List<Post> posts = postRepository.findAllDesc();
 		model.addAttribute("posts", posts);
 		return "home";
 	}
@@ -96,6 +97,8 @@ public class TestController {
 		}
 
 	}
+	
+	
 
 	// detail
 

@@ -10,7 +10,7 @@
 
 
 
-<div class= "container">	<!-- get 하면 body에 데이터 못들고감 -->
+<div class= "container">
 	<form action="/updateProc" method="POST">
 		<input type = "hidden" value ="${boardDto.id}" name ="id"/>
 		

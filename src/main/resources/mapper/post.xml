@@ -5,10 +5,12 @@
 <mapper namespace="com.cos.springblog.repository.PostRepository">
 
 
-<select id="findAll" resultType="com.cos.springblog.model.Post">
+<select id="findAllDesc" resultType="com.cos.springblog.model.Post">
 <!-- 	SELECT * -->
 <!-- 	FROM POST -->
-	SELECT id, title, content, userId, createDate FROM Post
+	SELECT id, title, content, userId, createDate 
+	FROM Post 
+	ORDER BY id DESC
 </select>
 	
 <!-- 	<insert id="save"> -->

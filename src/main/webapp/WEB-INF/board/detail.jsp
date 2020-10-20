@@ -15,20 +15,17 @@
 
 
 <div class="container">
-	<!-- get 하면 body에 데이터 못들고감 -->
+	
 	<a class = "btn btn-secondary" href ="javascript:history.back();">뒤로가기</a>
 	<button class="btn btn-secondary" onclick="history.back()">뒤로가기</button>
 	
-<%-- 	<c:if test="${sessionScope.principal.id == detailDto.boardDto.board.userId}"> --%>
-<%-- 		<%-- 로그인한사람하고 board id로 직접 쓴사람이 수정할 수 있게 설정--%>
 
-		
-<%-- 		<button class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.board.id} )">삭제</button> --%>
-		
-<%-- 	</c:if> --%>
-안되는 이유가 자신이 만든 id가 아니라서?
+		<!-- 안되는 이유가 자신이 만든 id가 아니라서? -> id 값을 못가져와서 -->
+		<!-- principl로 가져온 Id와 post의 userId가 같으면 보여주게 하자 -->
+		<c:if test="${sessionScope.principal.id == detailDto.boardDto.userId }">
 		<a href="/update/${detailDto.boardDto.id}" class="btn btn-warning">수정</a>
 		<button class="btn btn-danger" onclick="deleteById(${detailDto.boardDto.id} )">삭제</button>
+		</c:if>
 	<br />
 	<br />
 	<h6 class="m-2">
