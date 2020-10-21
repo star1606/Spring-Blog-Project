@@ -44,7 +44,7 @@
   </delete>
   
   
-<!--   나의 문제점. update할 때 단순히 title, content만 넣으면 안됨 id도 포함해야한다 -->
+  <!-- 나의 문제점. update할 때 단순히 title, content만 넣으면 안됨 id도 포함해야한다 -->
   <select id="findByIdInUpdate" resultType="com.cos.springblog.model.Post">
  	SELECT id, title, content, userId, createDate
  	FROM post

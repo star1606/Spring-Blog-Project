@@ -184,23 +184,25 @@ public class TestController {
 	// return을 어떤식으로 하지
 	// update를 어떤식으로 해야되면 id로만 하는게 아니다
 	@PostMapping("/updateProc")
-	public String updateProc(Post post){
+	public @ResponseBody String updateProc(Post post){
 		System.out.println("updateProc" + post);
 		
-//		이거랑 차이가있나
 		
+		//이거랑 차이가있나
 		//postRepository.update(post);
 		int result = postRepository.update(post);
 		
 //		if(result == 1) {
 //			return Script.href("수정에 성공하였습니다", "/");
 //		
+//		} else {
+//			return Script.back("수정에 실패하였습니다");
 //		}
 		// 빌더는 들어가고 안들어가고 차이가 뭐지?
+		// 어떤식으로 Script 활용할지 생각해봐야할 듯
 		
 		
-		
-		return "redirect:/";
+		return Script.href("수정이 완료돼었습니다", "/");
 		// 이렇게하면 alert창을 못 띄운다.
 	}
 	
