@@ -161,8 +161,14 @@ public class TestController {
 	
 	@DeleteMapping("/delete")
 	public @ResponseBody String delete(int id) {
-		postRepository.deleteById(id);
-		return "1";
+		int result = postRepository.deleteById(id);
+		
+		if(result == 1) {
+			return "1";	
+		} else {
+			return "0";
+		}
+		
 	}
 	
 	
@@ -187,23 +193,18 @@ public class TestController {
 	public @ResponseBody String updateProc(Post post){
 		System.out.println("updateProc" + post);
 		
-		
-		//이거랑 차이가있나
-		//postRepository.update(post);
+	
 		int result = postRepository.update(post);
 		
-//		if(result == 1) {
-//			return Script.href("수정에 성공하였습니다", "/");
-//		
-//		} else {
-//			return Script.back("수정에 실패하였습니다");
-//		}
+		if(result == 1) {
+			return Script.href("수정에 성공하였습니다", "/");
+		
+		} else {
+			return Script.back("수정에 실패하였습니다");
+		}
 		// 빌더는 들어가고 안들어가고 차이가 뭐지?
 		// 어떤식으로 Script 활용할지 생각해봐야할 듯
-		
-		
-		return Script.href("수정이 완료돼었습니다", "/");
-		// 이렇게하면 alert창을 못 띄운다.
+
 	}
 	
 }
