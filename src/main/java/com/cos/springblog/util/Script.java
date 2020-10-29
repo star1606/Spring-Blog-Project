@@ -111,7 +111,7 @@ public class Script {
 	
 	
 	
-	
+// 스크립트 	
 public static String href(String msg, String uri) {
 		
 		return

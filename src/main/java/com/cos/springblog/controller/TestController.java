@@ -3,6 +3,7 @@ package com.cos.springblog.controller;
 import java.util.List;
 
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,7 +194,6 @@ public class TestController {
 	public @ResponseBody String updateProc(Post post){
 		System.out.println("updateProc" + post);
 		
-	
 		int result = postRepository.update(post);
 		
 		if(result == 1) {
@@ -202,8 +202,11 @@ public class TestController {
 		} else {
 			return Script.back("수정에 실패하였습니다");
 		}
-		// 빌더는 들어가고 안들어가고 차이가 뭐지?
+		// 빌더는 들어가고 안들어가고 차이가 뭐지? -> 데이터를 조회할 때 그 데이터를 정제할떄???
 		// 어떤식으로 Script 활용할지 생각해봐야할 듯
+		
+		// update를 ajax로 해서 해보기.
+		
 
 	}
 	
