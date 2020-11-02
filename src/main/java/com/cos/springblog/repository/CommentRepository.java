@@ -11,4 +11,8 @@ public interface CommentRepository {
 //	public List<Comment> findAll();
 	
 	public List<ReplyResponseDto> findByPostId(int postId);
+	
+	// 맞는지 한 번 보자~
+	//public int save(int postId);
+	public int save();
 }

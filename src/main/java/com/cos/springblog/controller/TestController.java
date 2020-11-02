@@ -2,8 +2,6 @@ package com.cos.springblog.controller;
 
 import java.util.List;
 
-
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +11,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.springblog.dto.BoardResponseDto;
 import com.cos.springblog.dto.DetailResponseDto;
 import com.cos.springblog.dto.ReplyResponseDto;
+import com.cos.springblog.model.Comment;
 import com.cos.springblog.model.Post;
 import com.cos.springblog.model.User;
 import com.cos.springblog.repository.CommentRepository;
@@ -110,6 +108,7 @@ public class TestController {
 
 		// 여기서 id는 PostId인 것을 참고해야한다.
 		// 주호쌤은 findByPostId가 아닌 findAll로 표현했다 
+		// 댓글 뿌리기
 		List<ReplyResponseDto> replyDtos = commentRepository.findByPostId(id);
 		
 		
@@ -209,5 +208,28 @@ public class TestController {
 		
 
 	}
+	
+	
+	
+	@PostMapping("/replyProc") 
+	public @ResponseBody String writeReply(Comment reply) {
+		
+		System.out.println("reply출력: " + reply); // 왜 암것도 안가져올까
+		//System.out.println("detailResponseDto출력: " + detailResponseDto); // 왜 암것도 안가져올까
+		
+		
+//		int result = commentRepository.save();
+		
+		
+//		if(result == 1) {
+//			return "1";
+//		} else {
+//			return "0";
+//		}
+		return "응";
+	}
+	
+	
+	
 	
 }

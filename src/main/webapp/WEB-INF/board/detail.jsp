@@ -59,9 +59,24 @@
 				<div class="panel panel-info">
 					<div class="panel-heading m-2"><b>Comment</b></div>
 					<div class="panel-body">
-						<textarea id = "reply__write__form" class="form-control" placeholder="write a comment..." rows="3"></textarea>
-						<br>
-						<button onclick="replyWrite(${detailDto.boardDto.id}, ${sessionScope.principal.id })" type="button" class="btn btn-primary pull-right">댓글쓰기</button>
+<!-- 					form 버젼으로 해보기 -->
+
+
+
+<!-- 댓글쓰기 userId -> 로그인사람만 쓸 수 있게하는데 그냥 hide하면 되겟지? -->
+<!-- controller에서도 session잇는 사람이 로직 될 수 잇게 설정을 걸어줘야할까? -> 고민좀 -->
+						
+						
+<%-- 히든 이거 때문에 오류터졌었음 form데이터가 제대로 안보내졌다 <input type = "hidden" value ="${boardDto.id}" name ="postId"/> --%>
+						<form action="/replyProc" method="POST">
+						
+							<textarea id = "reply__write__form" name="content" class="form-control" placeholder="write a comment..." rows="3"></textarea>
+							<br>
+								<button type="submit" class="btn btn-primary pull-right">댓글쓰기임</button>
+	<%-- 						<button onclick="replyWrite(${detailDto.boardDto.id}, ${sessionScope.principal.id })" type="button" class="btn btn-primary pull-right">댓글쓰기</button> --%>
+						</form>
+<!-- 						이렇게만 보내면 안된다 뭐가 잘못된걸까? -->
+						
 						<div class="clearfix"></div>
 						<hr />
 						<!--댓글 리스트 시작 -->
