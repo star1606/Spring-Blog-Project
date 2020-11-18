@@ -69,7 +69,7 @@
 						
 <%-- 히든 이거 때문에 오류터졌었음 form데이터가 제대로 안보내졌다 <input type = "hidden" value ="${boardDto.id}" name ="postId"/> --%>
 						<form action="/replyProc" method="POST">
-						
+							<input type = "hidden" value ="${detailDto.boardDto.id}" name ="postId"/>
 							<textarea id = "reply__write__form" name="content" class="form-control" placeholder="write a comment..." rows="3"></textarea>
 							<br>
 								<button type="submit" class="btn btn-primary pull-right">댓글쓰기임</button>

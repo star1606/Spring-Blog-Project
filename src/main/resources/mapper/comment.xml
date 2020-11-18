@@ -17,6 +17,7 @@
 </select>
 
 <!-- userID를 찾아서 저장하는 거 맞겠지? -->
+<!-- id는 자동 저장-->
 <!-- 그리고 이건 postId에 따른 위치를 봐라봐야함 WHERE절 필요하지 않나? -->
 <insert id="save">
 	INSERT INTO comment(userId, postId, content, createDate)
