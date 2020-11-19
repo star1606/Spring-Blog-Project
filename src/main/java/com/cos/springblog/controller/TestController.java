@@ -2,7 +2,6 @@ package com.cos.springblog.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cos.springblog.dto.BoardResponseDto;
@@ -97,8 +98,6 @@ public class TestController {
 		}
 
 	}
-	
-	
 
 	// detail
 
@@ -108,29 +107,22 @@ public class TestController {
 		System.out.println(boardDto);
 
 		// 여기서 id는 PostId인 것을 참고해야한다.
-		// 주호쌤은 findByPostId가 아닌 findAll로 표현했다 
+		// 주호쌤은 findByPostId가 아닌 findAll로 표현했다
 		// 댓글 뿌리기
 		List<ReplyResponseDto> replyDtos = commentRepository.findByPostId(id);
-		
-		
-		
+
 		// 빌더, 생성자 공부
-		DetailResponseDto detailDto = DetailResponseDto.builder()
-				.boardDto(boardDto)
-				.replyDtos(replyDtos)
-				.build();
+		DetailResponseDto detailDto = DetailResponseDto.builder().boardDto(boardDto).replyDtos(replyDtos).build();
 
 		model.addAttribute("detailDto", detailDto);
 
 		return "board/detail";
 	}
 
-	
-	
 	// writePage
 	@GetMapping("/write")
 	public String writePage() {
-		
+
 		return "board/write";
 	}
 
@@ -139,121 +131,127 @@ public class TestController {
 	// write : 글쓰기
 	@PostMapping("/writeProc")
 	public String write(Post post, HttpSession session) {
-		
-	  User principal = (User)session.getAttribute("principal");
-		
-	  	System.out.println(principal);
-		
-	  	
-	  	// principal.getId때문에..
-		Post requestPost = Post.builder()
-				.title(post.getTitle())
-				.content(post.getContent())
-				.userId(principal.getId())
+
+		User principal = (User) session.getAttribute("principal");
+
+		System.out.println(principal);
+
+		// principal.getId때문에..
+		Post requestPost = Post.builder().title(post.getTitle()).content(post.getContent()).userId(principal.getId())
 				.build();
-		
-		
+
 		postRepository.save(requestPost);
-		
+
 		return "redirect:/";
 	}
-	
+
 	// delete
-	
+
 	@DeleteMapping("/delete")
 	public @ResponseBody String delete(int id) {
 		int result = postRepository.deleteById(id);
-		
-		if(result == 1) {
-			return "1";	
+
+		if (result == 1) {
+			return "1";
 		} else {
 			return "0";
 		}
-		
+
 	}
-	
-	
-	
+
 	// update
-	
+
 	@GetMapping("/update/{id}")
 	public String updatePage(@PathVariable int id, Model model) {
-		
-		//이렇게 하면 안된다 boardDto에 id가없음
-		//Post post = postRepository.findTitleAndContent(id);
-		
+
+		// 이렇게 하면 안된다 boardDto에 id가없음
+		// Post post = postRepository.findTitleAndContent(id);
+
 		Post post = postRepository.findByIdInUpdate(id);
-		
+
 		model.addAttribute("boardDto", post);
 		return "board/update";
 	}
-	
+
 	// return을 어떤식으로 하지
 	// update를 어떤식으로 해야되면 id로만 하는게 아니다
 	@PostMapping("/updateProc")
-	public @ResponseBody String updateProc(Post post){
+	public @ResponseBody String updateProc(Post post) {
 		System.out.println("updateProc" + post);
-		
+
 		int result = postRepository.update(post);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			return Script.href("수정에 성공하였습니다", "/");
-		
+
 		} else {
 			return Script.back("수정에 실패하였습니다");
 		}
 		// 빌더는 들어가고 안들어가고 차이가 뭐지? -> 데이터를 조회할 때 그 데이터를 정제할떄???
 		// 어떤식으로 Script 활용할지 생각해봐야할 듯
-		
+
 		// update를 ajax로 해서 해보기.
-		
 
 	}
-	
-	
-	
-	@PostMapping("/replyProc") 
-	public @ResponseBody String writeReply(Comment reply, HttpSession session) {
-		
-		
-		
-		User principal = (User)session.getAttribute("principal");
-		
-	  	System.out.println(principal);
-				
-		
-		// 추측: reply은 단지 그냥 매개변수일뿐 내가 생각한 것은 매개변수에 변수를 넣는
-		// 메소드를 실행시키는 경우의 다른 범위를 생각한 것 같다
-		System.out.println("reply출력: " + reply); // 왜 암것도 안가져올까 이유: 폼태그 문제였음
-		//System.out.println("detailResponseDto출력: " + detailResponseDto); // 왜 암것도 안가져올까
-		
-		Comment requestReply = Comment.builder()
-				// id를 빌더하려면 id 히든으로 보내야 하지 않나
-				// -> id 안해도 된다 insert SQL에서 자동으로 저장되기 때문에 만들어서 보낼 필요 없음
-				// postId는 어떤식으로 보내주는게 나을까
-				// userID는 세션으로 해서 보내고
-				.postId(reply.getPostId())
-				.userId(principal.getId())
-				.content(reply.getContent())
-				// -> createDate 안 넣어도됨 SQL에서 now()로 처리해주기 때문
-				.build();
-				
-		
-		int result = commentRepository.save(requestReply);
-		
-		
-		if(result == 1) {
-			// Script.back("댓글 쓰기가 완료되었습니다.") 하면 새로고침 안됨 당연하다
-			return Script.href("댓글쓰기 완료되었습니다.", "/detail/" + reply.getPostId());
+
+	// @PostMapping("/replyProc")
+	// public @ResponseBody String writeReply(@ModelAttribute Comment reply,
+	// HttpSession session) {
+
+	// 폼태그에 userId 담아서 보내기 때문에 session.getAttribute 안쓰고,
+	// 바로 reply.getUserId() 하면 되지 않나?
+	// 체크
+	// User principal = (User)session.getAttribute("principal");
+
+	// System.out.println(principal);
+
+	// 추측: reply은 단지 그냥 매개변수일뿐 내가 생각한 것은 매개변수에 변수를 넣는
+	// 메소드를 실행시키는 경우의 다른 범위를 생각한 것 같다
+	// System.out.println("reply출력: " + reply); // 왜 암것도 안가져올까 이유: 폼태그 문제였음
+	// System.out.println("detailResponseDto출력: " + detailResponseDto); // 왜 암것도
+	// 안가져올까
+
+	// 요청하고 보내는 데이터와 응답하고 보여주는 뷰는 분리되어있다
+	// 따라서 reply 데이터 요청한 것을 가져왔고 그 데이터를 빈객체에다가 데이터를 set으로 저장해서
+	// 뷰에다가 응답한다.
+	// Comment requestReply = Comment.builder()
+	// id를 빌더하려면 id 히든으로 보내야 하지 않나
+	// -> id 안해도 된다 insert SQL에서 자동으로 저장되기 때문에 만들어서 보낼 필요 없음
+	// postId는 어떤식으로 보내주는게 나을까
+	// userID는 세션으로 해서 보내고
+	// .postId(reply.getPostId())
+	// .userId(principal.getId())
+	// .content(reply.getContent())
+	// -> createDate 안 넣어도됨 SQL에서 now()로 처리해주기 때문
+	// .build();
+
+	// int result = commentRepository.save(requestReply);
+
+	// if(result == 1) {
+	// Script.back("댓글 쓰기가 완료되었습니다.") 하면 새로고침 안됨 당연하다
+	// return Script.href("댓글쓰기 완료되었습니다.", "/detail/" + reply.getPostId());
+	// } else {
+	// return Script.back("댓글쓰기 실패");
+	// }
+
+	// }
+
+	@PostMapping("/replyProc")
+	public @ResponseBody String replyWrite(@ModelAttribute Comment reply) {
+
+		Comment replyEntitiy = new Comment();
+		replyEntitiy.setUserId(reply.getUserId());
+		System.out.println("user아이디는?" + reply.getUserId());
+		replyEntitiy.setPostId(reply.getPostId());
+		replyEntitiy.setContent(reply.getContent());
+
+		int result = commentRepository.save(replyEntitiy);
+
+		if (result == 1) {
+			return "1";
 		} else {
-			return Script.back("댓글쓰기실패");
+			return "0";
 		}
-		
-		
-		
 	}
-	
-	
-	
-	
+
 }

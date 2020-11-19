@@ -67,18 +67,21 @@
 <!-- controller에서도 session잇는 사람이 로직 될 수 잇게 설정을 걸어줘야할까? -> 고민좀 -->
 						
 						
-<%-- 히든 이거 때문에 오류터졌었음 form데이터가 제대로 안보내졌다 <input type = "hidden" value ="${boardDto.id}" name ="postId"/> --%>
-						<form action="/replyProc" method="POST">
-							<input type = "hidden" value ="${detailDto.boardDto.id}" name ="postId"/>
+						<%-- 히든 이거 때문에 오류터졌었음 form데이터가 제대로 안보내졌다
+ 						<input type = "hidden" value ="${boardDto.id}" name ="postId"/> --%>
+						<c:if test="${!empty sessionScope.principal.id}">
+						<form id="reply__form" action="/replyProc" method="POST">
+<%-- 							<input type = "hidden" value ="${detailDto.boardDto.id}" name ="postId"/> --%>
 							<textarea id = "reply__write__form" name="content" class="form-control" placeholder="write a comment..." rows="3"></textarea>
 							<br>
-								<button type="submit" class="btn btn-primary pull-right">댓글쓰기임</button>
-	<%-- 						<button onclick="replyWrite(${detailDto.boardDto.id}, ${sessionScope.principal.id })" type="button" class="btn btn-primary pull-right">댓글쓰기</button> --%>
+						<!-- form 태그 <button type="submit" class="btn btn-primary pull-right">댓글쓰기임</button>-->
+						<button onclick="replyWrite(${detailDto.boardDto.id}, ${sessionScope.principal.id })" type="button" class="btn btn-primary pull-right">댓글쓰기</button>
 						</form>
 <!-- 						이렇게만 보내면 안된다 뭐가 잘못된걸까? -->
 						
 						<div class="clearfix"></div>
 						<hr />
+						</c:if>
 						<!--댓글 리스트 시작 -->
 						<ul id="reply__list" class="media-list">
 						

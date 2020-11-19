@@ -3,6 +3,7 @@ package com.cos.springblog.repository;
 import java.util.List;
 
 
+
 import com.cos.springblog.dto.BoardResponseDto;
 import com.cos.springblog.model.Post;
 
@@ -16,7 +17,9 @@ public interface PostRepository {
 	
 	// BoardResponseDto를 가져오기 위해서 findById를 사용
 	public BoardResponseDto findById(int id);
-	// 글 저장
+	
+	
+	// 글 저장 int 형으로 바꿔서 만들어도 될듯함 (댓글쓰기는 int형으로 함)
 	public void save(Post post);
 	
 	

@@ -12,6 +12,7 @@
 	FROM comment c INNER JOIN user u
 	ON c.userId = u.id
 	WHERE c.postId = #{postId}
+	ORDER BY c.id DESC
 	
 <!-- 	join을 써서 출력하기 때문에 DTO 필요 -->
 </select>

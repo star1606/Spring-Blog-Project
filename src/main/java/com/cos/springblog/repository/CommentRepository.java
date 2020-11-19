@@ -9,6 +9,7 @@ public interface CommentRepository {
 
 //	public List<Comment> findAll();
 	
+	// DESC로 출력해야함.
 	public List<ReplyResponseDto> findByPostId(int postId);
 	
 	// 맞는지 한 번 보자~
