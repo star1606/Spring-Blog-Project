@@ -38,9 +38,7 @@ function replyWrite (postId, userId) {
 		console.log(error.responseText);
 		alert("서버오류");
 	});
-	
-	
-	
+
 }
 
 
