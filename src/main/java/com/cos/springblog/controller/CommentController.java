@@ -28,7 +28,7 @@ import com.cos.springblog.repository.UserRepository;
 import com.cos.springblog.util.Script;
 
 @Controller
-public class TestController {
+public class CommentController {
 
 	@Autowired
 	PostRepository postRepository;
@@ -40,8 +40,6 @@ public class TestController {
 	CommentRepository commentRepository;
 
 	
-	// detail
-
 	
 
 	// @PostMapping("/replyProc")
